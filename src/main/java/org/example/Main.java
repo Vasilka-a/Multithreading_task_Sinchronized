@@ -17,7 +17,6 @@ public class Main {
         for (int i = 0; i < texts.length; i++) {
             texts[i] = generateRoute("RLRFR", 100);
         }
-
         for (String text : texts) {
             threadPool.submit(() -> {
                 int count = 0;
@@ -35,23 +34,20 @@ public class Main {
                         sizeToFreq.put(count, 1);
                     }
                 }
+
             });
         }
 
-        threadPool.shutdown();
-
         int max = (Collections.max(sizeToFreq.values()));
-
         for (Map.Entry<Integer, Integer> entry : sizeToFreq.entrySet()) {
-            if (max == entry.getValue()) {
-                System.out.println(entry.getKey() + " " + max);
-            }
+            if (max == entry.getValue())
+                System.out.println("Самое частое количество повторений " + entry.getKey() + " (встретилось " + max + " раз)");
         }
+        System.out.println("Другие размеры:");
         for (Map.Entry<Integer, Integer> entry : sizeToFreq.entrySet()) {
-            if (entry.getValue() != max) {
-                System.out.println(entry.getKey() + " " + entry.getValue());
-            }
+            if (entry.getValue() != max) System.out.println("-" + entry.getKey() + " (" + entry.getValue() + " раз)");
         }
+        threadPool.shutdown();
     }
 
     public static String generateRoute(String letters, int length) {
