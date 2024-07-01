@@ -38,6 +38,8 @@ public class Main {
             });
         }
 
+        threadPool.shutdown();
+
         int max = (Collections.max(sizeToFreq.values()));
         for (Map.Entry<Integer, Integer> entry : sizeToFreq.entrySet()) {
             if (max == entry.getValue())
@@ -47,7 +49,6 @@ public class Main {
         for (Map.Entry<Integer, Integer> entry : sizeToFreq.entrySet()) {
             if (entry.getValue() != max) System.out.println("-" + entry.getKey() + " (" + entry.getValue() + " раз)");
         }
-        threadPool.shutdown();
     }
 
     public static String generateRoute(String letters, int length) {
